@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MusicStreaming.Application\MusicStreaming.Application.csproj" />
+    <ProjectReference Include="..\MusicStreaming.Common\MusicStreaming.Common.csproj" />
+    <ProjectReference Include="..\MusicStreaming.Domain\MusicStreaming.Domain.csproj" />
+    <ProjectReference Include="..\MusicStreaming.Infrastructure\MusicStreaming.Infrastructure.csproj" />
+    <ProjectReference Include="..\MusicStreaming.Pesrsistence\MusicStreaming.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
