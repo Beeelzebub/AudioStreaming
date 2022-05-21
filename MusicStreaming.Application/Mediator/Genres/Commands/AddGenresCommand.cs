@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MusicStreaming.Application.Abstractions.DbContexts;
-using MusicStreaming.Application.Abstractions.Response;
+using MusicStreaming.Application.Abstractions.Responses;
 using MusicStreaming.Application.DTOs.Genres;
-using MusicStreaming.Application.DTOs.Response;
+using MusicStreaming.Application.DTOs.Responses;
 using MusicStreaming.Application.Mediator.Common.Commands;
 using MusicStreaming.Domain.Entities;
 

@@ -1,6 +1,6 @@
-﻿using MusicStreaming.Application.Abstractions.Response;
+﻿using MusicStreaming.Application.Abstractions.Responses;
 
-namespace MusicStreaming.Application.DTOs.Response
+namespace MusicStreaming.Application.DTOs.Responses
 {
     public class ApiResult<T> : IApiResult<T>
     {

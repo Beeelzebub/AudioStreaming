@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MusicStreaming.Application.Abstractions.DbContexts;
-using MusicStreaming.Application.Abstractions.Response;
-using MusicStreaming.Application.DTOs.Response;
+using MusicStreaming.Application.Abstractions.Responses;
+using MusicStreaming.Application.DTOs.Responses;
 using MusicStreaming.Application.Mediator.Common.Commands;
 using MusicStreaming.Domain.Enums;
 
@@ -26,7 +26,6 @@ namespace MusicStreaming.Application.Mediator.Releases.Commands
         {
             var release = await _context.Release
                 .Include(r => r.Songs)
-                .Include(r => r.Artists)
                 .SingleOrDefaultAsync(r => r.Id == request.ReleaseId);
 
             if (release == null)

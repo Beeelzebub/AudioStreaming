@@ -1,4 +1,4 @@
-﻿namespace MusicStreaming.Application.Abstractions.Response
+﻿namespace MusicStreaming.Application.Abstractions.Responses
 {
     public interface IApiResult
     {

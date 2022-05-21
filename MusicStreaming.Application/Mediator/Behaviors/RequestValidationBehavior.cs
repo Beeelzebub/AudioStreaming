@@ -1,4 +1,4 @@
-﻿using MusicStreaming.Application.Abstractions.Response;
+﻿using MusicStreaming.Application.Abstractions.Responses;
 using FluentValidation;
 using MediatR;
 

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MusicStreaming.Application.Abstractions.Response;
+using MusicStreaming.Application.Abstractions.Responses;
 
 namespace MusicStreaming.Application.Mediator.Common.Commands
 {
