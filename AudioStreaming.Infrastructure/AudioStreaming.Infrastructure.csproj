@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.12.0" />
+    <PackageReference Include="Hangfire" Version="1.7.29" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AudioStreaming.Application\AudioStreaming.Application.csproj" />
+    <ProjectReference Include="..\AudioStreaming.Common\AudioStreaming.Common.csproj" />
+    <ProjectReference Include="..\AudioStreaming.Domain\AudioStreaming.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
