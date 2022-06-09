@@ -20,7 +20,7 @@ namespace AudioStreaming.WebApi.Controllers
         [HttpGet("[action]")]
         [Authorize(Roles = "Moderator")]
         public async Task<IApiResult<PagedList<ReleaseDto>>> GetAllReleasesWithDetails([FromQuery] RequestParameters parameters, 
-            [FromQuery] int artistId = 0,
+            [FromQuery] string artistId = null,
             [FromBody] ICollection<ReleaseStage>? releaseStages = null)
         {
             var result = await _mediator.Send(new GetReleaseListQuery(parameters, releaseStages, artistId, true));
@@ -39,7 +39,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IApiResult<PagedList<ReleaseDto>>> GetPublishedReleases([FromQuery] RequestParameters parameters, [FromQuery] int artistId = 0)
+        public async Task<IApiResult<PagedList<ReleaseDto>>> GetPublishedReleases([FromQuery] RequestParameters parameters, [FromQuery] string? artistId = null)
         {
             var result = await _mediator.Send(new GetReleaseListQuery(parameters, new List<ReleaseStage> { ReleaseStage.Published }, artistId, false));
 

@@ -12,7 +12,7 @@ using AudioStreaming.Application.DTOs.Responses;
 namespace AudioStreaming.Application.Mediator.Releases.Queries
 {
     public record GetReleaseListQuery(RequestParameters Parameters, ICollection<ReleaseStage>? ReleaseStages = null, 
-        int ArtistId = 0, bool IncludeDetails = false) : IQuery<PagedList<ReleaseDto>>;
+        string? ArtistId = null, bool IncludeDetails = false) : IQuery<PagedList<ReleaseDto>>;
 
     public class GetReleaseListHandler : IQueryHandler<GetReleaseListQuery, PagedList<ReleaseDto>>
     {
@@ -37,7 +37,7 @@ namespace AudioStreaming.Application.Mediator.Releases.Queries
                 releasesQuery = releasesQuery.Where(r => request.ReleaseStages.Contains(r.Stage));
             }
 
-            if (request.ArtistId != 0)
+            if (!string.IsNullOrEmpty(request.ArtistId))
             {
                 releasesQuery = releasesQuery.Where(r => r.Participants.Select(p => p.ArtistId).Contains(request.ArtistId));
             }

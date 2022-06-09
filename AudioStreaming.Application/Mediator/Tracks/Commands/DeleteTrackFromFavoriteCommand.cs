@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AudioStreaming.Application.Mediator.Tracks.Commands
 {
-    public record DeleteTrackFromFavoriteCommand(int UserId, int TrackId) : ICommand<Unit>;
+    public record DeleteTrackFromFavoriteCommand(string UserId, int TrackId) : ICommand<Unit>;
 
     public class DeleteTrackFromFavoriteHandler : ICommandHandler<DeleteTrackFromFavoriteCommand, Unit>
     {

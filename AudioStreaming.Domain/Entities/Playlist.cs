@@ -14,7 +14,7 @@ namespace AudioStreaming.Domain.Entities
 
         public bool IsPrivate { get; set; }
 
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         public User? Owner { get; set; } = default;
 

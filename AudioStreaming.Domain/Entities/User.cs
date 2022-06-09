@@ -1,11 +1,10 @@
 ﻿using AudioStreaming.Domain.Abstractions;
+using Microsoft.AspNetCore.Identity;
 
 namespace AudioStreaming.Domain.Entities
 {
-    public class User : IEntity
+    public class User : IdentityUser, IEntity
     {
-        public int Id { get; set; }
-
         public List<ListeningHistory> ListeningHistory { get; set; } = default!;
 
         public List<PlaylistPermission> Permissions { get; set; } = default!;

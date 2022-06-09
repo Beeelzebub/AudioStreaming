@@ -12,9 +12,9 @@ namespace AudioStreaming.WebApi.Filters
         {
             var dbContext = context.HttpContext.RequestServices.GetService<IAudioStreamingContext>();
 
-            var claim = context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            var userId = context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
 
-            if (context.ActionArguments["payload"] is ReleaseBaseDto payload && int.TryParse(claim, out var userId))
+            if (context.ActionArguments["payload"] is ReleaseBaseDto payload && !string.IsNullOrEmpty(userId))
             {
                 var hasPermission = await dbContext.ReleaseParticipant
                     .AnyAsync(p => p.ReleaseId == payload.ReleaseId && p.ArtistId == userId);

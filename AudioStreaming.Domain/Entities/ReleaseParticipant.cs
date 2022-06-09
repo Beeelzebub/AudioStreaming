@@ -4,7 +4,7 @@ namespace AudioStreaming.Domain.Entities
 {
     public class ReleaseParticipant : IEntity
     {
-        public int ArtistId { get; set; }
+        public string ArtistId { get; set; }
 
         public int ReleaseId { get; set; }
 

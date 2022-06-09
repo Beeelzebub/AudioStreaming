@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
     <ProjectReference Include="..\AudioStreaming.Domain\AudioStreaming.Domain.csproj" />
     <ProjectReference Include="..\AudioStreaming.Infrastructure\AudioStreaming.Infrastructure.csproj" />
     <ProjectReference Include="..\AudioStreaming.Persistence\AudioStreaming.Persistence.csproj" />
+    <ProjectReference Include="..\MusicStreaming.Security\MusicStreaming.Security.csproj" />
   </ItemGroup>
 
 </Project>

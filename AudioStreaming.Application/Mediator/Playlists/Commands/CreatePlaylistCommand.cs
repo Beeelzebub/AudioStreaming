@@ -12,7 +12,7 @@ using AudioStreaming.Domain.Enums;
 
 namespace AudioStreaming.Application.Mediator.Playlists.Commands
 {
-    public record CreatePlaylistCommand(CreatePlaylistDto Playlist, int OwnerId) : ICommand<int>;
+    public record CreatePlaylistCommand(CreatePlaylistDto Playlist, string OwnerId) : ICommand<int>;
 
     public class CreatePlaylistHandler : ICommandHandler<CreatePlaylistCommand, int>
     {
@@ -52,7 +52,7 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
             var ownerPermission = new PlaylistPermission
             {
                 User = user,
-                Type = PermissionType.All,
+                Type = PermissionType.Edit,
                 Name = $"Playlist owner permission"
             };
 

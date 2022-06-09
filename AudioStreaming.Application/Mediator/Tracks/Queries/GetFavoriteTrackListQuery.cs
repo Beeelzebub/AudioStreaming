@@ -11,7 +11,7 @@ using AudioStreaming.Application.Mediator.Common.Queries;
 
 namespace AudioStreaming.Application.Mediator.Tracks.Queries
 {
-    public record GetFavoriteTrackListQuery(RequestParameters Parameters, int UserId) : IQuery<PagedList<TrackDto>>;
+    public record GetFavoriteTrackListQuery(RequestParameters Parameters, string UserId) : IQuery<PagedList<TrackDto>>;
 
     public class GetFavoriteTrackListHandler : IQueryHandler<GetFavoriteTrackListQuery, PagedList<TrackDto>>
     {

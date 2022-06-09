@@ -23,7 +23,7 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult<PagedList<TrackDto>>> GetFavoriteTracks([FromQuery] RequestParameters parameters)
         {
-            var result = await _mediator.Send(new GetFavoriteTrackListQuery(parameters, _userId));
+            var result = await _mediator.Send(new GetFavoriteTrackListQuery(parameters, _userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null.")));
 
             return result;
         }
@@ -96,7 +96,7 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult> DeleteFavoriteTrack([FromRoute] int trackId)
         {
-            var result = await _mediator.Send(new DeleteTrackFromFavoriteCommand(_userId, trackId));
+            var result = await _mediator.Send(new DeleteTrackFromFavoriteCommand(_userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null."), trackId));
 
             return result;
         }

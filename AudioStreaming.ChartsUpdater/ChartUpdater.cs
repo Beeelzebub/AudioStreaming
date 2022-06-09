@@ -26,7 +26,7 @@ namespace AudioStreaming.ChartUpdater
             var chart = await _context.Chart.OrderBy(c => c.Position).ToListAsync();
 
             var tracksToChart = await _context.Track
-                .Where(t => t.Release.Stage == ReleaseStage.Released)
+                .Where(t => t.Release.Stage == ReleaseStage.Published)
                 .OrderBy(t => t.ListeningHistory.Where(l => l.Date >= DateTimeOffset.Now.AddMonths(-1)).Count())
                 .Take(chart.Count)
                 .ToListAsync();

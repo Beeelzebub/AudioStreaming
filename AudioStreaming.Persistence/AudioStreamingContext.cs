@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AudioStreaming.Application.Abstractions.DbContexts;
 using AudioStreaming.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AudioStreaming.Persistence
 {
-    public class AudioStreamingContext : DbContext, IAudioStreamingContext
+    public class AudioStreamingContext : IdentityDbContext<User>, IAudioStreamingContext
     {
 
         public AudioStreamingContext(DbContextOptions options) 
@@ -43,6 +44,8 @@ namespace AudioStreaming.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AudioStreamingContext).Assembly);
         }
     }

@@ -32,7 +32,7 @@ namespace AudioStreaming.Infrastructure.BackgroundJobs
             }
 
             release.Date = publishDate;
-            release.Stage = ReleaseStage.Released;
+            release.Stage = ReleaseStage.Published;
 
             _context.SaveChanges();
         }

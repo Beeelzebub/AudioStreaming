@@ -4,7 +4,7 @@ namespace AudioStreaming.Application.DTOs.Artists
 {
     public class TrackParticipantDto
     {
-        public int ArtistId { get; set; }
+        public string ArtistId { get; set; }
 
         public ParticipantRole Role { get; set; }
 

@@ -7,7 +7,7 @@ namespace AudioStreaming.Domain.Entities
     {
         public byte Order { get; set; }
 
-        public int ArtistId { get; set; }
+        public string ArtistId { get; set; }
 
         public int TrackId { get; set; }
 

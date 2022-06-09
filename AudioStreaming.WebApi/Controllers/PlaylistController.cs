@@ -30,7 +30,8 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult<PagedList<PlaylistDto>>> GetFavoritePlaylists([FromQuery] RequestParameters parameters)
         {
-            var result = await _mediator.Send(new GetFavoritePlaylistListQuery(parameters, _userId));
+            var result = await _mediator.Send(new GetFavoritePlaylistListQuery(parameters, 
+                _userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null.")));
 
             return result;
         }
@@ -39,7 +40,8 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult<int>> CreatePlaylist([FromBody] CreatePlaylistDto payload)
         {
-            var result = await _mediator.Send(new CreatePlaylistCommand(payload, _userId));
+            var result = await _mediator.Send(new CreatePlaylistCommand(payload, 
+                _userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null.")));
 
             return result;
         }

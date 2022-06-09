@@ -19,7 +19,7 @@ namespace AudioStreaming.Application.DTOs.Releases
 
     public class ReleaseParticipantDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Pseudonym { get; set; } = string.Empty;
     }

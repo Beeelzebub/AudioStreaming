@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AudioStreaming.Application.Mediator.Playlists.Queries
 {
-    public record GetFavoritePlaylistListQuery(RequestParameters Parameters, int UserId) : IQuery<PagedList<PlaylistDto>>;
+    public record GetFavoritePlaylistListQuery(RequestParameters Parameters, string UserId) : IQuery<PagedList<PlaylistDto>>;
 
     public class GetFavoritePlaylistListHandler : IQueryHandler<GetFavoritePlaylistListQuery, PagedList<PlaylistDto>>
     {
