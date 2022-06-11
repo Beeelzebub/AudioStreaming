@@ -5,6 +5,10 @@ namespace AudioStreaming.Domain.Entities
 {
     public class User : IdentityUser, IEntity
     {
+        public string? RefreshToken { get; set; }
+
+        public DateTimeOffset? RefreshTokenExperation { get; set; }
+
         public List<ListeningHistory> ListeningHistory { get; set; } = default!;
 
         public List<PlaylistPermission> Permissions { get; set; } = default!;

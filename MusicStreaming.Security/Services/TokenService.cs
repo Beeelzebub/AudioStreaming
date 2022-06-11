@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AudioStreaming.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MusicStreaming.Security.Services.Abstractions;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,22 +12,35 @@ namespace MusicStreaming.Security.Services
 {
     public class TokenService : ITokenService
     {
+        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
 
-        public TokenService(IConfiguration configuration)
+        private User? _user = null;
+
+        public TokenService(IConfiguration configuration, UserManager<User> userManager)
         {
             _configuration = configuration;
+            _userManager = userManager;
         }
 
-        public string GenerateAccessToken(IEnumerable<Claim> claims)
+        public async Task<string> GenerateAccessToken(string userId)
         {
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+            var user = await GetUserById(userId);
+
+            if (user == null)
+            {
+                return string.Empty;
+            }
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["superSecretKey@345"]));
 
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+            var claims = await GetUserClaims(user);
+
             var tokeOptions = new JwtSecurityToken(
-                issuer: "https://localhost:5001",
-                audience: "https://localhost:5001",
+                issuer: _configuration["Issuer"],
+                audience: _configuration["Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: signinCredentials
@@ -36,7 +51,91 @@ namespace MusicStreaming.Security.Services
             return tokenString;
         }
 
-        public string GenerateRefreshToken()
+        public async Task<string> UpdateRefreshToken(string userId)
+        {
+            var user = await GetUserById(userId);
+
+            if (user == null)
+            {
+                return string.Empty;
+            }
+
+            user.RefreshToken = GenerateRefreshToken();
+            user.RefreshTokenExperation = DateTimeOffset.UtcNow.AddDays(7);
+
+            await _userManager.UpdateAsync(user);
+
+            return user.RefreshToken;
+        }
+
+        public (bool IsValid, ClaimsPrincipal? Principal) ValidateExpiredToken(string token)
+        {
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["superSecretKey@345"])),
+                ValidateLifetime = false 
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            SecurityToken? validatedToken;
+            ClaimsPrincipal principal;
+
+            try
+            {
+                principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out validatedToken);
+            }
+            catch (SecurityTokenException)
+            {
+                return (false, null);
+            }
+
+            return (validatedToken != null, principal);
+        }
+
+        public async Task<bool> ValidateRefreshToken(string userId, string refreshToken)
+        {
+            var user = await GetUserById(userId);
+            
+            return user != null && user.RefreshToken == refreshToken && user.RefreshTokenExperation > DateTimeOffset.UtcNow;
+        }
+
+        public async Task RevokeRefreshToken(string userId)
+        {
+            var user = await GetUserById(userId);
+
+            if (user != null)
+            {
+                user.RefreshToken = null;
+                user.RefreshTokenExperation = null;
+                await _userManager.UpdateAsync(user);
+            }
+        }
+
+        private async Task<User> GetUserById(string userId) 
+            => _user?.Id == userId ? _user : _user = await _userManager.FindByIdAsync(userId);
+
+        private async Task<IList<Claim>> GetUserClaims(User user)
+        {
+            var claims = new List<Claim>();
+
+            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            return claims;
+        }
+
+        private string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];
 
@@ -46,31 +145,6 @@ namespace MusicStreaming.Security.Services
 
                 return Convert.ToBase64String(randomNumber);
             }
-        }
-
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
-        {
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateAudience = false, //you might want to validate the audience and issuer depending on your use case
-                ValidateIssuer = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345")),
-                ValidateLifetime = false //here we are saying that we don't care about the token's expiration date
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            SecurityToken securityToken;
-
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
-
-            var jwtSecurityToken = securityToken as JwtSecurityToken;
-
-            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-                throw new SecurityTokenException("Invalid token");
-
-            return principal;
         }
     }
 }

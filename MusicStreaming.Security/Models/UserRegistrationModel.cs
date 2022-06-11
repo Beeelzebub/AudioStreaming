@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MusicStreaming.Security.Models
 {
-    public class LoginModel
+    public class UserRegistrationModel
     {
-        public string? UserName { get; set; }
+        public string? UserName { get; set; } 
 
         public string? Password { get; set; }
     }

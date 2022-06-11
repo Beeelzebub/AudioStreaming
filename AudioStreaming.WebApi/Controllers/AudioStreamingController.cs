@@ -1,10 +1,12 @@
 ﻿using AudioStreaming.WebApi.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AudioStreaming.WebApi.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     [ApiResultFilter]
     public class AudioStreamingController : ControllerBase
     {
@@ -14,7 +16,7 @@ namespace AudioStreaming.WebApi.Controllers
         public AudioStreamingController(IMediator mediator)
         {
             _mediator = mediator;
-            _userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            _userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         }
     }
 }

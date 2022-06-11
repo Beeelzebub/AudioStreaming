@@ -4,10 +4,14 @@ namespace MusicStreaming.Security.Services.Abstractions
 {
     public interface ITokenService
     {
-        string GenerateAccessToken(IEnumerable<Claim> claims);
+        Task<string> GenerateAccessToken(string userId);
 
-        string GenerateRefreshToken();
+        Task<string> UpdateRefreshToken(string userId);
 
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        (bool IsValid, ClaimsPrincipal? Principal) ValidateExpiredToken(string accessToken);
+
+        Task<bool> ValidateRefreshToken(string userId, string refreshToken);
+
+        Task RevokeRefreshToken(string userId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicStreaming.Security.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace MusicStreaming.Security.Services.Abstractions
 {
     public interface IAuthService
     {
+        Task<(string? UserId, ICollection<string>? Errors)> CreateNewUserAsync(UserRegistrationModel registrationModel);
 
+        Task<string?> ValidateUser(LoginModel loginModel);
     }
 }

@@ -4,6 +4,7 @@ using AudioStreaming.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace AudioStreaming.WebApi.Filters
 {
@@ -15,7 +16,7 @@ namespace AudioStreaming.WebApi.Filters
         {
             var dbContext = context.HttpContext.RequestServices.GetService<IAudioStreamingContext>();
 
-            var userId = context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value;
+            var userId = context.HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             if (context.ActionArguments["payload"] is PlaylistBaseDto payload && !string.IsNullOrEmpty(userId))
             {

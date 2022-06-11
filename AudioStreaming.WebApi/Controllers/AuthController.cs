@@ -1,48 +1,54 @@
-﻿using AudioStreaming.Application.Abstractions.DbContexts;
+﻿using AudioStreaming.Application.Abstractions.Responses;
+using AudioStreaming.Application.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 using MusicStreaming.Security.Models;
 using MusicStreaming.Security.Services.Abstractions;
 
 namespace AudioStreaming.WebApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAudioStreamingContext _dbContext;
-
         private readonly ITokenService _tokenService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IAudioStreamingContext dbContext, ITokenService tokenService)
+        public AuthController(ITokenService tokenService, IAuthService authService)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(_dbContext));
-            _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
+            _tokenService = tokenService;
+            _authService = authService;
+        }
+
+
+        [HttpPost("[action]")]
+        public async Task<IApiResult> Registration([FromBody]UserRegistrationModel payload)
+        {
+            var result = await _authService.CreateNewUserAsync(payload);
+            
+            return result.UserId != null ? ApiResult.CreateSuccessfulResult() : ApiResult.CreateFailedResult(result.Errors);
         }
 
         [HttpPost("[action]")]
-        public IActionResult Login([FromBody] LoginModel loginModel)
+        public async Task<IApiResult<AuthenticatedResponse>> Login([FromBody] LoginModel loginModel)
         {
-            if (loginModel is null)
+            if (loginModel == null)
             {
-                return BadRequest("Invalid client request");
+                return ApiResult<AuthenticatedResponse>.CreateFailedResult("Invalid client request.");
             }
-            var user = _userContext.LoginModels.FirstOrDefault(u =>
-                (u.UserName == loginModel.UserName) && (u.Password == loginModel.Password));
-            if (user is null)
-                return Unauthorized();
-            var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, loginModel.UserName),
-            new Claim(ClaimTypes.Role, "Manager")
-        };
-            var accessToken = _tokenService.GenerateAccessToken(claims);
-            var refreshToken = _tokenService.GenerateRefreshToken();
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
-            _userContext.SaveChanges();
-            return Ok(new AuthenticatedResponse
+
+            var userId = await _authService.ValidateUser(loginModel);
+
+            if (string.IsNullOrEmpty(userId))
             {
-                Token = accessToken,
-                RefreshToken = refreshToken
-            });
+                return ApiResult<AuthenticatedResponse>.CreateFailedResult("Wrong password or username.");
+            }
+
+            var response = new AuthenticatedResponse();
+
+            response.AccessToken = await _tokenService.GenerateAccessToken(userId);
+            response.RefreshToken = await _tokenService.UpdateRefreshToken(userId);
+
+            return ApiResult<AuthenticatedResponse>.CreateSuccessfulResult(response);
         }
     }
 }

@@ -2,15 +2,27 @@
 
 namespace AudioStreaming.Application.DTOs.Responses
 {
-    public class ApiResult<T> : IApiResult<T>
+    public class ApiResult : IApiResult
     {
         public bool IsSuccess { get; set; }
-        
-        public T? Payload { get; set; } = default;
 
         public IEnumerable<string>? Errors { get; set; } = default;
 
-        public static ApiResult<T> CreateSuccessfulResult() => 
+        public static ApiResult CreateSuccessfulResult() =>
+            new ApiResult { IsSuccess = true };
+
+        public static ApiResult CreateFailedResult(string error) =>
+            new ApiResult { IsSuccess = false, Errors = new List<string>() { error } };
+
+        public static ApiResult CreateFailedResult(IEnumerable<string> errors) =>
+            new ApiResult { IsSuccess = false, Errors = errors };
+    }
+
+    public class ApiResult<T> : ApiResult, IApiResult<T>
+    {
+        public T? Payload { get; set; } = default;
+
+        public new static ApiResult<T> CreateSuccessfulResult() => 
             new ApiResult<T> { IsSuccess = true };
 
         public static ApiResult<T> CreateSuccessfulResult(T payload) =>
@@ -19,10 +31,10 @@ namespace AudioStreaming.Application.DTOs.Responses
         public static ApiResult<T> CreateFailedResult() =>
             new ApiResult<T> { IsSuccess = false };
 
-        public static ApiResult<T> CreateFailedResult(string error) =>
+        public new static ApiResult<T> CreateFailedResult(string error) =>
             new ApiResult<T> { IsSuccess = false, Errors = new List<string>() { error } };
 
-        public static ApiResult<T> CreateFailedResult(IEnumerable<string> errors) =>
+        public new static ApiResult<T> CreateFailedResult(IEnumerable<string> errors) =>
             new ApiResult<T> { IsSuccess = false, Errors = errors };
 
 
