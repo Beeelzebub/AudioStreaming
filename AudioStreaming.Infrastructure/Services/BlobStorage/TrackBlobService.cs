@@ -26,9 +26,11 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
             return await UploadBlobAsync(path, fileData, "audio/mpeg");
         }
 
-        public Task<Stream> GetStreamAsync(string path)
+        public async Task<Stream?> GetStreamAsync(string path)
         {
-            throw new NotImplementedException();
+            var blobClient = _blobContainer.GetBlobClient(path);
+            
+            return await blobClient.ExistsAsync() ? await blobClient.OpenReadAsync() : null;
         }
     }
 }

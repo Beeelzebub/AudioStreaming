@@ -6,9 +6,7 @@ namespace AudioStreaming.Application.Abstractions.Services.BlobStorage
     {
         Task<string> UploadAsync(string releaseName, string fileName, Stream fileData);
 
-        //Task<string> GetLinkAsync(string path, string filename);
-
-        Task<Stream> GetStreamAsync(string path);
+        Task<Stream?> GetStreamAsync(string path);
 
         Task DeleteIfExistsAsync(string path);
     }

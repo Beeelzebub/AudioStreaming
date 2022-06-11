@@ -4,7 +4,7 @@ namespace AudioStreaming.Domain.Entities
 {
     public class Artist : IEntity
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public bool IsConfirmed { get; set; }   
 
