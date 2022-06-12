@@ -14,9 +14,9 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
     public class AddTracksToPlaylistHandler : ICommandHandler<AddTracksToPlaylistCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<AddTracksToPlaylistHandler> _logger;
 
-        public AddTracksToPlaylistHandler(IAudioStreamingContext context, ILogger logger)
+        public AddTracksToPlaylistHandler(IAudioStreamingContext context, ILogger<AddTracksToPlaylistHandler> logger)
         {
             _context = context;
             _logger = logger;

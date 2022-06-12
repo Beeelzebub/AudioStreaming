@@ -17,9 +17,9 @@ namespace AudioStreaming.Application.Mediator.Tracks.Queries
     {
         private readonly IAudioStreamingContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<GetTrackListByPlaylistIdHandler> _logger;
 
-        public GetTrackListByPlaylistIdHandler(IAudioStreamingContext context, IMapper mapper, ILogger logger)
+        public GetTrackListByPlaylistIdHandler(IAudioStreamingContext context, IMapper mapper, ILogger<GetTrackListByPlaylistIdHandler> logger)
         {
             _context = context;
             _mapper = mapper;

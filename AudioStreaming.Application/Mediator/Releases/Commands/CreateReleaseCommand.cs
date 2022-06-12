@@ -16,10 +16,10 @@ namespace AudioStreaming.Application.Mediator.Releases.Commands
     public class CreateReleaseHandler : ICommandHandler<CreateReleaseCommand, int>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<CreateReleaseHandler> _logger;
         private readonly IMapper _mapper;
 
-        public CreateReleaseHandler(IAudioStreamingContext context, ILogger logger, IMapper mapper)
+        public CreateReleaseHandler(IAudioStreamingContext context, ILogger<CreateReleaseHandler> logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;
@@ -49,7 +49,7 @@ namespace AudioStreaming.Application.Mediator.Releases.Commands
             return ApiResult<int>.CreateSuccessfulResult(releaseToAdd.Id);
         }
 
-        private bool CheckArtists(IEnumerable<Artist> artists, IEnumerable<int> requestedIds, out IApiResult<int>? errorResult)
+        private bool CheckArtists(IEnumerable<Artist> artists, IEnumerable<string> requestedIds, out IApiResult<int>? errorResult)
         {
             errorResult = null;
 

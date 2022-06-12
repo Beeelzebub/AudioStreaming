@@ -10,11 +10,25 @@ namespace AudioStreaming.Persistence.Configurations
         {
             builder.HasKey(e => e.Id);
 
+            builder.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsRequired(true);
+
+            builder.Property(e => e.PathInStorage)
+                .IsRequired(true);
 
             builder.HasOne(e => e.Release)
                 .WithMany(e => e.Tracks)
                 .HasForeignKey(e => e.ReleaseId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(e => e.Participants)
+                .WithOne(e => e.Track)
+                .HasForeignKey(e => e.TrackId);
+
+            builder.HasMany(e => e.Artists)
+                .WithMany(e => e.Tracks)
+                .UsingEntity<TrackParticipant>();
 
             builder.HasMany(e => e.Genres)
                 .WithMany(e => e.Tracks);
@@ -27,6 +41,8 @@ namespace AudioStreaming.Persistence.Configurations
                 .HasForeignKey(e => e.TrackId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(e => e.Playlists)
+                .WithMany(e => e.Tracks);
         }
     }
 }

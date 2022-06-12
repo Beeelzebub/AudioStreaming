@@ -20,7 +20,7 @@ namespace AudioStreaming.Persistence
 
         public DbSet<ListeningHistory> ListeningHistory { get; set; } = default!;
 
-        public DbSet<PlaylistPermission> Permission { get; set; } = default!;
+        public DbSet<PlaylistPermission> PlaylistPermission { get; set; } = default!;
 
         public DbSet<Playlist> Playlist { get; set; } = default!;
 
@@ -35,6 +35,8 @@ namespace AudioStreaming.Persistence
         public DbSet<TrackParticipant> TrackParticipant { get; set; } = default!;
 
         public DbSet<ReleaseParticipant> ReleaseParticipant { get; set; } = default!;
+
+        public DbSet<ReleaseVerificationHistory> ReleaseVerificationHistory { get; set; }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -15,9 +15,9 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly ITrackBlobService _trackBlobService;
-        private readonly ILogger _logger;
+        private readonly ILogger<DeleteTrackFromReleaseHandler> _logger;
 
-        public DeleteTrackFromReleaseHandler(IAudioStreamingContext context, ILogger logger, ITrackBlobService trackBlobService)
+        public DeleteTrackFromReleaseHandler(IAudioStreamingContext context, ILogger<DeleteTrackFromReleaseHandler> logger, ITrackBlobService trackBlobService)
         {
             _context = context;
             _logger = logger;

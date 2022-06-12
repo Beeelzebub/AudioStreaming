@@ -14,9 +14,9 @@ namespace AudioStreaming.Application.Mediator.Releases.Commands
     public class DeleteReleaseHandler : ICommandHandler<DeleteReleaseCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<DeleteReleaseHandler> _logger;
 
-        public DeleteReleaseHandler(IAudioStreamingContext context, ILogger logger)
+        public DeleteReleaseHandler(IAudioStreamingContext context, ILogger<DeleteReleaseHandler> logger)
         {
             _context = context;
             _logger = logger;

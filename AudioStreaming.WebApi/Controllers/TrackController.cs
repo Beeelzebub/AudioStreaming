@@ -6,6 +6,7 @@ using AudioStreaming.Application.DTOs.Responses;
 using AudioStreaming.Application.DTOs.Tracks;
 using AudioStreaming.Application.Mediator.Tracks.Commands;
 using AudioStreaming.Application.Mediator.Tracks.Queries;
+using AudioStreaming.Common.Extensions;
 using AudioStreaming.Domain.Enums;
 using AudioStreaming.WebApi.Filters;
 using MediatR;
@@ -23,7 +24,7 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult<PagedList<TrackDto>>> GetFavoriteTracks([FromQuery] RequestParameters parameters)
         {
-            var result = await _mediator.Send(new GetFavoriteTrackListQuery(parameters, _userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null.")));
+            var result = await _mediator.Send(new GetFavoriteTrackListQuery(parameters, User.GetUserId()));
 
             return result;
         }
@@ -75,9 +76,9 @@ namespace AudioStreaming.WebApi.Controllers
         [HttpPost("[action]")]
         [Authorize]
         [CheckPlaylistPermissionFilter(PermissionType = PermissionType.Edit)]
-        public async Task<IApiResult> AddTracksToPlaylist([FromBody] IEnumerable<int> trackIds, [FromBody] PlaylistBaseDto payload)
+        public async Task<IApiResult> AddTracksToPlaylist([FromBody] AddTracksToPlaylistDto payload)
         {
-            var result = await _mediator.Send(new AddTracksToPlaylistCommand(trackIds, payload.PlaylistId));
+            var result = await _mediator.Send(new AddTracksToPlaylistCommand(payload.TrackIds, payload.PlaylistId));
 
             return result;
         }
@@ -96,7 +97,7 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult> DeleteFavoriteTrack([FromRoute] int trackId)
         {
-            var result = await _mediator.Send(new DeleteTrackFromFavoriteCommand(_userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null."), trackId));
+            var result = await _mediator.Send(new DeleteTrackFromFavoriteCommand(User.GetUserId(), trackId));
 
             return result;
         }

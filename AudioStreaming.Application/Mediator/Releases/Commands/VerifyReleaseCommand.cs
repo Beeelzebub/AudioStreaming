@@ -16,9 +16,9 @@ namespace AudioStreaming.Application.Mediator.Releases.Commands
     public class VerifyReleaseHandler : ICommandHandler<VerifyReleaseCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<VerifyReleaseHandler> _logger;
 
-        public VerifyReleaseHandler(IAudioStreamingContext context, ILogger logger)
+        public VerifyReleaseHandler(IAudioStreamingContext context, ILogger<VerifyReleaseHandler> logger)
         {
             _context = context;
             _logger = logger;

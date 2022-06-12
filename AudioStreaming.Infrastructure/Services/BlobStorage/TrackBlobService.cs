@@ -8,7 +8,7 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
     {
         private const string ContainerName = "Tracks";
 
-        public TrackBlobService(IConfiguration configuration, ILogger logger)
+        public TrackBlobService(IConfiguration configuration, ILogger<BlobServiceBase> logger)
             : base(configuration, logger, ContainerName)
         {
 

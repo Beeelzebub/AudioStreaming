@@ -5,11 +5,6 @@ using AudioStreaming.Application.Mediator.Common.Commands;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AudioStreaming.Application.DTOs.Responses;
 
 namespace AudioStreaming.Application.Mediator.Artists.Commands
@@ -20,9 +15,9 @@ namespace AudioStreaming.Application.Mediator.Artists.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly IUserService _userService;
-        private readonly ILogger _logger;
+        private readonly ILogger<ConfirmArtistHandler> _logger;
 
-        public ConfirmArtistHandler(IAudioStreamingContext context, ILogger logger, IUserService userService)
+        public ConfirmArtistHandler(IAudioStreamingContext context, ILogger<ConfirmArtistHandler> logger, IUserService userService)
         {
             _context = context;
             _logger = logger;

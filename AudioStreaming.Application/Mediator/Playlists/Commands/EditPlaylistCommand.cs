@@ -17,9 +17,9 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly ICoverBlobService _coverBlobService;
-        private readonly ILogger _logger;
+        private readonly ILogger<EditPlaylistHandler> _logger;
 
-        public EditPlaylistHandler(IAudioStreamingContext context, ILogger logger, ICoverBlobService coverBlobService)
+        public EditPlaylistHandler(IAudioStreamingContext context, ILogger<EditPlaylistHandler> logger, ICoverBlobService coverBlobService)
         {
             _context = context;
             _logger = logger;

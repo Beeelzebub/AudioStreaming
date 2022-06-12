@@ -15,10 +15,10 @@ namespace AudioStreaming.Application.Mediator.Releases.Queries
     public class GetReleaseDetailHandler : IQueryHandler<GetReleaseDetailQuery, ReleaseDetailDto>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<GetReleaseDetailHandler> _logger;
         private readonly IMapper _mapper;
 
-        public GetReleaseDetailHandler(IAudioStreamingContext context, ILogger logger, IMapper mapper)
+        public GetReleaseDetailHandler(IAudioStreamingContext context, ILogger<GetReleaseDetailHandler> logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;

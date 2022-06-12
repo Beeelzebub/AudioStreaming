@@ -14,12 +14,14 @@ namespace AudioStreaming.WebApi.Controllers
         private readonly ITrackBlobService _trackBlobService;
         private readonly IAudioStreamingContext _dbContext;
 
-        public StreamController(ITrackBlobService trackBlobService)
+        public StreamController(ITrackBlobService trackBlobService, IAudioStreamingContext dbContext)
         {
             _trackBlobService = trackBlobService;
+            _dbContext = dbContext;
         }
 
-        public async Task<IActionResult> GetTrackStream(int trackId, CancellationToken cancellationToken)
+        [HttpGet("[action]/{trackId}")]
+        public async Task<IActionResult> GetTrackStream([FromRoute] int trackId, CancellationToken cancellationToken)
         {
             var track = await _dbContext.Track
                 .AsNoTracking()

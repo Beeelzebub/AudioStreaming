@@ -7,13 +7,13 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
 {
     public abstract class BlobServiceBase
     {
-        protected readonly ILogger _logger;
+        protected readonly ILogger<BlobServiceBase> _logger;
         protected readonly BlobContainerClient _blobContainer;
 
-        public BlobServiceBase(IConfiguration configuration, ILogger logger, string containerName)
+        public BlobServiceBase(IConfiguration configuration, ILogger<BlobServiceBase> logger, string containerName)
         {
             _logger = logger;
-            var storageAccount = new BlobServiceClient(configuration["StorageConnectionString"]);
+            var storageAccount = new BlobServiceClient(configuration.GetConnectionString("StorageConnectionString"));
             _blobContainer = storageAccount.GetBlobContainerClient(containerName);
         }
 

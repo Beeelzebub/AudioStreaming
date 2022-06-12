@@ -13,9 +13,9 @@ namespace AudioStreaming.Application.Mediator.Genres.Commands
     public class DeleteGenreCommandHandler : ICommandHandler<DeleteGenreCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<DeleteGenreCommandHandler> _logger;
 
-        public DeleteGenreCommandHandler(IAudioStreamingContext context, ILogger logger)
+        public DeleteGenreCommandHandler(IAudioStreamingContext context, ILogger<DeleteGenreCommandHandler> logger)
         {
             _context = context;
             _logger = logger;

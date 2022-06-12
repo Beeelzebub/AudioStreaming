@@ -10,18 +10,27 @@ namespace AudioStreaming.Persistence.Configurations
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(e => e.RefreshToken)
+                .IsRequired(false);
+
+            builder.Property(e => e.RefreshTokenExperation)
+                .IsRequired(false);
+
             builder.HasMany(e => e.ListeningHistory)
                 .WithOne(e => e.User)
                 .HasForeignKey(e => e.UserId);
 
             builder.HasMany(e => e.Permissions)
-                .WithMany(e => e.Users);
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId);
 
             builder.HasMany(e => e.FavoriteTracks)
                 .WithMany(e => e.UsersWhoAddedToFavorite);
 
-
             builder.HasMany(e => e.FavoritePlaylists)
+                .WithMany(e => e.UsersWhoAddedToFavorite);
+
+            builder.HasMany(e => e.FavoriteReleases)
                 .WithMany(e => e.UsersWhoAddedToFavorite);
         }
     }

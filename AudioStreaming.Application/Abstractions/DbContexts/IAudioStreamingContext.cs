@@ -15,7 +15,9 @@ namespace AudioStreaming.Application.Abstractions.DbContexts
 
         DbSet<ReleaseParticipant> ReleaseParticipant { get; }
 
-        DbSet<PlaylistPermission> Permission { get; }
+        DbSet<PlaylistPermission> PlaylistPermission { get; }
+
+        DbSet<ReleaseVerificationHistory> ReleaseVerificationHistory { get; }
 
         DbSet<Playlist> Playlist { get; }
 

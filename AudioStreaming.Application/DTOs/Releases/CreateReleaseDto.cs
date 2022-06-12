@@ -15,6 +15,6 @@ namespace AudioStreaming.Application.DTOs.Releases
 
         public IFormFile? ReleaseCoverUri { get; set; } = default;
 
-        public IEnumerable<int> ParticipantsIds { get; set; } = default!;
+        public IEnumerable<string> ParticipantsIds { get; set; } = default!;
     }
 }

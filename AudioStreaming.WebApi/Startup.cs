@@ -1,4 +1,11 @@
-﻿namespace AudioStreaming.WebApi
+﻿using AudioStreaming.Application;
+using AudioStreaming.Infrastructure;
+using AudioStreaming.Persistence;
+using Hangfire;
+using Hangfire.Dashboard;
+using MusicStreaming.Security;
+
+namespace AudioStreaming.WebApi
 {
     public class Startup
     {
@@ -13,7 +20,14 @@
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            services.ConfigureSwagger();
+            services.AddLogging();
+
+            services.AddApplicationServices();
+            services.AddInfrastructureServices(Configuration);
+            services.AddEntityFramework(Configuration);
+            services.AddSecurityServices();
+            services.ConfigureJwt(Configuration);
 
             services.AddCors(options =>
             {
@@ -35,6 +49,14 @@
                 app.UseSwaggerUI();
             }
 
+            RecurringJob.RemoveIfExists("ChartUpdater");
+            //RecurringJob.AddOrUpdate<ChartUpdater>("ChartUpdater", x => x.Update(), Configuration["Hangfire:ChartUpdaterCronExpression"]);
+
+            app.UseHangfireDashboard(options: new DashboardOptions
+            {
+                Authorization = new List<IDashboardAuthorizationFilter>()
+            });
+
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
@@ -44,6 +66,7 @@
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
         }
     }

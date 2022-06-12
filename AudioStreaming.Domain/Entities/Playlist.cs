@@ -14,10 +14,6 @@ namespace AudioStreaming.Domain.Entities
 
         public bool IsPrivate { get; set; }
 
-        public string OwnerId { get; set; }
-
-        public User? Owner { get; set; } = default;
-
         public List<Track> Tracks { get; set; } = default!;
 
         public List<User> UsersWhoAddedToFavorite { get; set; } = default!;

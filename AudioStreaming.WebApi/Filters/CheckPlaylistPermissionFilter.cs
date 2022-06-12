@@ -20,7 +20,7 @@ namespace AudioStreaming.WebApi.Filters
 
             if (context.ActionArguments["payload"] is PlaylistBaseDto payload && !string.IsNullOrEmpty(userId))
             {
-                var hasPermission = await dbContext.Permission
+                var hasPermission = await dbContext.PlaylistPermission
                     .AnyAsync(p => p.UserId == userId && p.PlaylistId == payload.PlaylistId && p.Type == PermissionType);
             }
             else

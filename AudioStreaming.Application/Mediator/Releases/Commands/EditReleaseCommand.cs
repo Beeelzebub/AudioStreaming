@@ -18,9 +18,9 @@ namespace AudioStreaming.Application.Mediator.Releases.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly ICoverBlobService _coverBlobService;
-        private readonly ILogger _logger;
+        private readonly ILogger<EditReleaseHandler> _logger;
 
-        public EditReleaseHandler(IAudioStreamingContext context, ILogger logger, ICoverBlobService coverBlobService)
+        public EditReleaseHandler(IAudioStreamingContext context, ILogger<EditReleaseHandler> logger, ICoverBlobService coverBlobService)
         {
             _context = context;
             _logger = logger;

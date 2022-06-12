@@ -4,6 +4,7 @@ using AudioStreaming.Application.DTOs.Requests;
 using AudioStreaming.Application.DTOs.Responses;
 using AudioStreaming.Application.Mediator.Playlists.Commands;
 using AudioStreaming.Application.Mediator.Playlists.Queries;
+using AudioStreaming.Common.Extensions;
 using AudioStreaming.Domain.Enums;
 using AudioStreaming.WebApi.Filters;
 using MediatR;
@@ -30,8 +31,7 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult<PagedList<PlaylistDto>>> GetFavoritePlaylists([FromQuery] RequestParameters parameters)
         {
-            var result = await _mediator.Send(new GetFavoritePlaylistListQuery(parameters, 
-                _userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null.")));
+            var result = await _mediator.Send(new GetFavoritePlaylistListQuery(parameters, User.GetUserId()));
 
             return result;
         }
@@ -40,8 +40,7 @@ namespace AudioStreaming.WebApi.Controllers
         [Authorize]
         public async Task<IApiResult<int>> CreatePlaylist([FromBody] CreatePlaylistDto payload)
         {
-            var result = await _mediator.Send(new CreatePlaylistCommand(payload, 
-                _userId ?? throw new ArgumentException($"{nameof(_userId)} cannot be null.")));
+            var result = await _mediator.Send(new CreatePlaylistCommand(payload, User.GetUserId()));
 
             return result;
         }
@@ -49,7 +48,7 @@ namespace AudioStreaming.WebApi.Controllers
         [HttpPatch("[action]")]
         [Authorize]
         [CheckPlaylistPermissionFilter(PermissionType = PermissionType.Edit)]
-        public async Task<IApiResult> EfitPlaylist([FromBody] EditPlaylistDto payload)
+        public async Task<IApiResult> EditPlaylist([FromBody] EditPlaylistDto payload)
         {
             var result = await _mediator.Send(new EditPlaylistCommand(payload));
 

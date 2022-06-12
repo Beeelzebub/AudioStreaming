@@ -8,7 +8,7 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
     {
         private const string ContainerName = "Covers";
 
-        public CoverBlobService(IConfiguration configuration, ILogger logger)
+        public CoverBlobService(IConfiguration configuration, ILogger<BlobServiceBase> logger)
             : base(configuration, logger, ContainerName)
         {
 

@@ -13,9 +13,9 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
     public class DeleteTrackFromFavoriteHandler : ICommandHandler<DeleteTrackFromFavoriteCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<DeleteTrackFromFavoriteHandler> _logger;
 
-        public DeleteTrackFromFavoriteHandler(IAudioStreamingContext context, ILogger logger)
+        public DeleteTrackFromFavoriteHandler(IAudioStreamingContext context, ILogger<DeleteTrackFromFavoriteHandler> logger)
         {
             _context = context;
             _logger = logger;

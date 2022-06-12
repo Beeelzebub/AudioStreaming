@@ -15,9 +15,9 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
     public class SharePlaylistPermissionsHandler : ICommandHandler<SharePlaylistPermissionsCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<SharePlaylistPermissionsHandler> _logger;
 
-        public SharePlaylistPermissionsHandler(IAudioStreamingContext context, ILogger logger)
+        public SharePlaylistPermissionsHandler(IAudioStreamingContext context, ILogger<SharePlaylistPermissionsHandler> logger)
         {
             _context = context;
             _logger = logger;

@@ -27,6 +27,9 @@ namespace AudioStreaming.Persistence.Configurations
                 .HasMaxLength(50)
                 .IsRequired(true);
 
+            builder.Property(e => e.ReleaseCoverUri)
+                .IsRequired(false);
+
             builder.HasMany(e => e.UsersWhoAddedToFavorite)
                 .WithMany(e => e.FavoriteReleases);
 
@@ -39,7 +42,13 @@ namespace AudioStreaming.Persistence.Configurations
                 .WithOne(e => e.Release)
                 .HasForeignKey(e => e.ReleaseId);
 
+            builder.HasMany(e => e.Artists)
+                .WithMany(e => e.Releases)
+                .UsingEntity<ReleaseParticipant>();
 
+            builder.HasMany(e => e.VerificationHistory)
+                .WithOne(e => e.Release)
+                .HasForeignKey(e => e.ReleaseId);
         }
     }
 }

@@ -17,9 +17,9 @@ namespace AudioStreaming.Application.Mediator.Releases.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly IReleaseService _releaseService;
-        private readonly ILogger _logger;
+        private readonly ILogger<PublishReleaseHandler> _logger;
 
-        public PublishReleaseHandler(IAudioStreamingContext context, IReleaseService releaseService, ILogger logger)
+        public PublishReleaseHandler(IAudioStreamingContext context, IReleaseService releaseService, ILogger<PublishReleaseHandler> logger)
         {
             _releaseService = releaseService;
             _context = context;

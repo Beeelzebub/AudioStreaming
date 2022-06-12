@@ -33,7 +33,12 @@ namespace AudioStreaming.Persistence.Configurations
                 .IsRequired(false);
 
             builder.Property(e => e.Email)
-                .IsRequired(false);
+                .IsRequired(true);
+
+            builder.HasOne(e => e.User)
+                .WithOne(e => e.Artist)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasForeignKey("Artist", "Id");
 
             builder.HasMany(e => e.ParticipatingInTracks)
                 .WithOne(e => e.Artist)
@@ -42,6 +47,14 @@ namespace AudioStreaming.Persistence.Configurations
             builder.HasMany(e => e.ParticipatingInReleases)
                 .WithOne(e => e.Artist)
                 .HasForeignKey(e => e.ArtistId);
+
+            builder.HasMany(e => e.Tracks)
+                .WithMany(e => e.Artists)
+                .UsingEntity<TrackParticipant>();
+
+            builder.HasMany(e => e.Releases)
+                .WithMany(e => e.Artists)
+                .UsingEntity<ReleaseParticipant>();
 
         }
     }

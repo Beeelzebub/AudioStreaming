@@ -7,9 +7,9 @@ namespace AudioStreaming.Infrastructure.BackgroundJobs
     public class ReleasePublisher
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<ReleasePublisher> _logger;
 
-        public ReleasePublisher(IAudioStreamingContext context, ILogger logger)
+        public ReleasePublisher(IAudioStreamingContext context, ILogger<ReleasePublisher> logger)
         {
             _context = context;
             _logger = logger;
@@ -17,6 +17,8 @@ namespace AudioStreaming.Infrastructure.BackgroundJobs
 
         public void PublishRelease(int releaseId, DateTimeOffset publishDate)
         {
+            _logger.LogInformation($"Release publisher executed at: {DateTimeOffset.Now}");
+
             var release = _context.Release.SingleOrDefault(r => r.Id == releaseId);
 
             if (release == null)

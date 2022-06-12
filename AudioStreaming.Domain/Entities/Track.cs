@@ -14,7 +14,9 @@ namespace AudioStreaming.Domain.Entities
 
         public Release Release { get; set; } = default!;
 
-        public List<TrackParticipant> Participants { get; set; } = default!;
+        public List<TrackParticipant> Participants { get; set; } = default!; 
+
+        public List<Artist> Artists { get; set; } = default!;
 
         public List<Genre> Genres { get; set; } = default!;
 

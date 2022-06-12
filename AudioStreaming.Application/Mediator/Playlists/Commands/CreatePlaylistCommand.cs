@@ -18,9 +18,9 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly ICoverBlobService _coverBlobService;
-        private readonly ILogger _logger;
+        private readonly ILogger<CreatePlaylistHandler> _logger;
 
-        public CreatePlaylistHandler(IAudioStreamingContext context, ILogger logger, ICoverBlobService coverBlobService)
+        public CreatePlaylistHandler(IAudioStreamingContext context, ILogger<CreatePlaylistHandler> logger, ICoverBlobService coverBlobService)
         {
             _context = context;
             _logger = logger;
@@ -52,8 +52,7 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
             var ownerPermission = new PlaylistPermission
             {
                 User = user,
-                Type = PermissionType.Edit,
-                Name = $"Playlist owner permission"
+                Type = PermissionType.Owner
             };
 
             var playlistToAdd = new Playlist()
@@ -62,7 +61,6 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
                 Description = request.Playlist.Description,
                 Tracks = Tracks,
                 IsPrivate = request.Playlist.IsPrivate,
-                OwnerId = request.OwnerId,
                 Permissions = new List<PlaylistPermission> { ownerPermission },
                 UsersWhoAddedToFavorite = new List<User> { user }
             };

@@ -14,9 +14,9 @@ namespace AudioStreaming.Application.Mediator.Genres.Commands
     public class EditGenreCommandHandler : ICommandHandler<EditGenreCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<EditGenreCommandHandler> _logger;
 
-        public EditGenreCommandHandler(IAudioStreamingContext context, ILogger logger)
+        public EditGenreCommandHandler(IAudioStreamingContext context, ILogger<EditGenreCommandHandler> logger)
         {
             _context = context;
             _logger = logger;

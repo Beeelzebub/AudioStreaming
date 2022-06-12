@@ -15,10 +15,10 @@ namespace AudioStreaming.Application.Mediator.Genres.Commands
     public class AddGenresCommandHandler : ICommandHandler<AddGenresCommand, ICollection<string>>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<AddGenresCommandHandler> _logger;
         private readonly IMapper _mapper;
 
-        public AddGenresCommandHandler(IAudioStreamingContext context, ILogger logger, IMapper mapper)
+        public AddGenresCommandHandler(IAudioStreamingContext context, ILogger<AddGenresCommandHandler> logger, IMapper mapper)
         {
             _context = context;
             _logger = logger;

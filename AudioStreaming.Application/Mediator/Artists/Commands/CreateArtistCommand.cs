@@ -1,6 +1,5 @@
 ﻿using AudioStreaming.Application.Abstractions.DbContexts;
 using AudioStreaming.Application.Abstractions.Responses;
-using AudioStreaming.Application.Abstractions.Services.Users;
 using AudioStreaming.Application.DTOs.Artists;
 using AudioStreaming.Application.DTOs.Responses;
 using AudioStreaming.Application.Mediator.Common.Commands;
@@ -16,9 +15,9 @@ namespace AudioStreaming.Application.Mediator.Artists.Commands
     public class CreateArtistHandler : ICommandHandler<CreateArtistCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<CreateArtistHandler> _logger;
 
-        public CreateArtistHandler(IAudioStreamingContext context, ILogger logger)
+        public CreateArtistHandler(IAudioStreamingContext context, ILogger<CreateArtistHandler> logger)
         {
             _context = context;
             _logger = logger;

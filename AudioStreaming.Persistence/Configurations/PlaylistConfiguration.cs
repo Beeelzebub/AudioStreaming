@@ -25,11 +25,6 @@ namespace AudioStreaming.Persistence.Configurations
                 .HasForeignKey(e => e.PlaylistId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(e => e.Owner)
-                .WithMany(e => e.FavoritePlaylists)
-                .HasForeignKey(e => e.OwnerId)
-                .OnDelete(DeleteBehavior.SetNull);
-
             builder.HasMany(e => e.Tracks)
                 .WithMany(e => e.Playlists);
         }

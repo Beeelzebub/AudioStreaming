@@ -16,10 +16,10 @@ namespace AudioStreaming.Application.Mediator.Playlists.Queries
     public class GetFavoritePlaylistListHandler : IQueryHandler<GetFavoritePlaylistListQuery, PagedList<PlaylistDto>>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<GetFavoritePlaylistListHandler> _logger;
         private readonly IMapper _mapper;
 
-        public GetFavoritePlaylistListHandler(IAudioStreamingContext context, IMapper mapper, ILogger logger)
+        public GetFavoritePlaylistListHandler(IAudioStreamingContext context, IMapper mapper, ILogger<GetFavoritePlaylistListHandler> logger)
         {
             _context = context;
             _mapper = mapper;

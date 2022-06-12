@@ -4,6 +4,7 @@ using AudioStreaming.Application.DTOs.Requests;
 using AudioStreaming.Application.DTOs.Responses;
 using AudioStreaming.Application.Mediator.Releases.Commands;
 using AudioStreaming.Application.Mediator.Releases.Queries;
+using AudioStreaming.Common.Extensions;
 using AudioStreaming.Domain.Enums;
 using AudioStreaming.WebApi.Filters;
 using MediatR;
@@ -33,7 +34,7 @@ namespace AudioStreaming.WebApi.Controllers
         public async Task<IApiResult<PagedList<ReleaseDto>>> GetOwnReleasesWithDetails([FromQuery] RequestParameters parameters,
             [FromBody] ICollection<ReleaseStage> releaseStages)
         {
-            var result = await _mediator.Send(new GetReleaseListQuery(parameters, null, _userId, true));
+            var result = await _mediator.Send(new GetReleaseListQuery(parameters, null, User.GetUserId(), true));
            
             return result;
         }

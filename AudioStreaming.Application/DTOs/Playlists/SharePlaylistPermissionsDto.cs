@@ -1,10 +1,4 @@
-﻿using AudioStreaming.Domain.Entities;
-using AudioStreaming.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AudioStreaming.Domain.Enums;
 
 namespace AudioStreaming.Application.DTOs.Playlists
 {

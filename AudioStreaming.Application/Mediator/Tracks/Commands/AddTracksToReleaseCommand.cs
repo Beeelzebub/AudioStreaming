@@ -17,9 +17,9 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
     {
         private readonly IAudioStreamingContext _context;
         private readonly ITrackBlobService _TrackBlobService;
-        private readonly ILogger _logger;
+        private readonly ILogger<AddTracksToReleaseHandler> _logger;
 
-        public AddTracksToReleaseHandler(IAudioStreamingContext context, ILogger logger, ITrackBlobService TrackBlobService)
+        public AddTracksToReleaseHandler(IAudioStreamingContext context, ILogger<AddTracksToReleaseHandler> logger, ITrackBlobService TrackBlobService)
         {
             _context = context;
             _logger = logger;
@@ -100,7 +100,7 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
             return errorResult == null;
         }
 
-        private bool CheckArtists(IEnumerable<Artist> artists, IEnumerable<int> requestedIds, out IApiResult<ICollection<int>>? errorResult)
+        private bool CheckArtists(IEnumerable<Artist> artists, IEnumerable<string> requestedIds, out IApiResult<ICollection<int>>? errorResult)
         {
             errorResult = null;
 

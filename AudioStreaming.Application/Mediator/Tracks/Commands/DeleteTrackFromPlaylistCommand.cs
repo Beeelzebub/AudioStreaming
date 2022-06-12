@@ -13,9 +13,9 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
     public class DeleteTrackFromPlaylistHandler : ICommandHandler<DeleteTrackFromPlaylistCommand, Unit>
     {
         private readonly IAudioStreamingContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<DeleteTrackFromPlaylistHandler> _logger;
 
-        public DeleteTrackFromPlaylistHandler(IAudioStreamingContext context, ILogger logger)
+        public DeleteTrackFromPlaylistHandler(IAudioStreamingContext context, ILogger<DeleteTrackFromPlaylistHandler> logger)
         {
             _context = context;
             _logger = logger;

@@ -1,6 +1,5 @@
 ﻿using AudioStreaming.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MusicStreaming.Security.Services.Abstractions;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,13 +12,13 @@ namespace MusicStreaming.Security.Services
     public class TokenService : ITokenService
     {
         private readonly UserManager<User> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly JwtOptions _jwtOptions;
 
         private User? _user = null;
 
-        public TokenService(IConfiguration configuration, UserManager<User> userManager)
+        public TokenService(JwtOptions jwtOptions, UserManager<User> userManager)
         {
-            _configuration = configuration;
+            _jwtOptions = jwtOptions;
             _userManager = userManager;
         }
 
@@ -32,15 +31,15 @@ namespace MusicStreaming.Security.Services
                 return string.Empty;
             }
 
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecretKey"]));
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey));
 
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var claims = await GetUserClaims(user);
 
             var tokeOptions = new JwtSecurityToken(
-                issuer: _configuration["Issuer"],
-                audience: _configuration["Audience"],
+                issuer: _jwtOptions.Issuer,
+                audience: _jwtOptions.Audience,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: signinCredentials
@@ -75,7 +74,7 @@ namespace MusicStreaming.Security.Services
                 ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["SecretKey"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
                 ValidateLifetime = false 
             };
 
