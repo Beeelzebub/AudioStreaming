@@ -17,7 +17,7 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
             _blobContainer = storageAccount.GetBlobContainerClient(containerName);
         }
 
-        protected async Task<string> UploadBlobAsync(string path, Stream fileData, string fileMimeType)
+        protected async Task<Uri?> UploadBlobAsync(string path, Stream fileData, string fileMimeType)
         {
             try
             {
@@ -28,8 +28,8 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
                 {
                     var blobClient = _blobContainer.GetBlobClient(path);
                     await blobClient.UploadAsync(fileData, new BlobHttpHeaders() { ContentType = fileMimeType });
-
-                    return blobClient.Uri.AbsolutePath;
+                    
+                    return blobClient.Uri;
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
             {
                 _logger.LogError("Failed to upload blob to storage:" + ex.Message);
 
-                return string.Empty;
+                return null;
             }
         }
 

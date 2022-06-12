@@ -23,7 +23,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]/{artistId}")]
-        [Authorize(Roles = "Moderator")]
+        //[Authorize(Roles = "Moderator")]
         public async Task<IApiResult> ConfirmArtist([FromRoute] string artistId)
         {
             var result = await _mediator.Send(new ConfirmArtistCommand(artistId));

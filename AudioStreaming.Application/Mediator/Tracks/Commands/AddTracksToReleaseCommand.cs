@@ -67,6 +67,8 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
             release.Tracks.AddRange(TracksToAdd);
             await _context.SaveChangesAsync(cancellationToken);
 
+
+
             return ApiResult<ICollection<int>>.CreateSuccessfulResult(TracksToAdd.Select(s => s.Id).ToList());
         }
 
@@ -143,15 +145,15 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
         {
             var TracksToAdd = new List<Track>();
 
-            foreach (var Track in Tracks)
+            foreach (var track in Tracks)
             {
-                var path = await UploadTrackToStorage(Track, release.Title);
-                var TrackParticipants = Track.Participants.Select(p => new TrackParticipant { ArtistId = p.ArtistId, Order = p.Order, Role = p.Role }).ToList();
-                var TrackGenres = genres.Where(e => Track.Genres.Contains(e.Name)).ToList();
+                var path = await UploadTrackToStorage(track, release.Id);
+                var TrackParticipants = track.Participants.Select(p => new TrackParticipant { ArtistId = p.ArtistId, Order = p.Order, Role = p.Role }).ToList();
+                var TrackGenres = genres.Where(e => track.Genres.Contains(e.Name)).ToList();
 
                 var TrackToAdd = new Track
                 {
-                    Name = Track.Name,
+                    Name = track.Name,
                     Release = release,
                     PathInStorage = path,
                     Genres = TrackGenres,
@@ -164,13 +166,13 @@ namespace AudioStreaming.Application.Mediator.Tracks.Commands
             return TracksToAdd;
         }
 
-        private async Task<string> UploadTrackToStorage(AddTrackDto Track, string releaseName)
+        private async Task<string> UploadTrackToStorage(AddTrackDto Track, int releaseId)
         {
             await using var stream = new MemoryStream();
             var fileName = $"{Track.Name}.mp3";
             await Track.File.CopyToAsync(stream);
 
-            return await _TrackBlobService.UploadAsync(releaseName, fileName, stream);
+            return await _TrackBlobService.UploadAsync(releaseId, fileName, stream);
         }
     }
 }

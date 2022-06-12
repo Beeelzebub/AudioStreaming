@@ -6,7 +6,7 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
 {
     public class CoverBlobService : BlobServiceBase, ICoverBlobService
     {
-        private const string ContainerName = "Covers";
+        private const string ContainerName = "covers";
 
         public CoverBlobService(IConfiguration configuration, ILogger<BlobServiceBase> logger)
             : base(configuration, logger, ContainerName)
@@ -27,15 +27,19 @@ namespace AudioStreaming.Infrastructure.Services.BlobStorage
         public async Task<string> UploadPlaylistCoverAsync(int playlistId, Stream fileData)
         {
             var path = $"playlists/{playlistId}.png";
-            
-            return await UploadBlobAsync(path, fileData, "image/png");
+
+            var uri = await UploadBlobAsync(path, fileData, "image/png");
+
+            return uri != null ? uri.AbsoluteUri : "";
         }
 
         public async Task<string> UploadReleaseCoverAsync(int releaseId, Stream fileData)
         {
             var path = $"releases/{releaseId}.png";
 
-            return await UploadBlobAsync(path, fileData, "image/png");
+            var uri = await UploadBlobAsync(path, fileData, "image/png");
+
+            return uri != null ? uri.AbsoluteUri : "";
         }
     }
 }

@@ -27,9 +27,11 @@ namespace AudioStreaming.Application.Mediator.Releases.Queries
 
         public async Task<IApiResult<PagedList<ReleaseDto>>> Handle(GetReleaseListQuery request, CancellationToken cancellationToken)
         {
-            var releasesQuery = _context.Release.AsNoTracking()
+            var releasesQuery = _context.Release
+                .AsNoTracking()
                 .OrderBy(r => r.Date)
                 .Include(r => r.Participants)
+                .Include(r => r.Artists)
                 .AsQueryable();
 
             if (request.ReleaseStages != null && request.ReleaseStages.Count != 0)
