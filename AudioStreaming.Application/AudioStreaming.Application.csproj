@@ -19,4 +19,8 @@
     <ProjectReference Include="..\AudioStreaming.Domain\AudioStreaming.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mediator\Artists\Queries\" />
+  </ItemGroup>
+
 </Project>

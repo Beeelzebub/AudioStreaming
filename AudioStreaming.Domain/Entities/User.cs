@@ -9,6 +9,8 @@ namespace AudioStreaming.Domain.Entities
 
         public DateTimeOffset? RefreshTokenExperation { get; set; }
 
+        public Artist? Artist { get; set; }
+
         public List<ListeningHistory> ListeningHistory { get; set; } = default!;
 
         public List<PlaylistPermission> Permissions { get; set; } = default!;

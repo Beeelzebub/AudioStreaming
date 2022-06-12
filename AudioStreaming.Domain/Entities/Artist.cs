@@ -20,6 +20,8 @@ namespace AudioStreaming.Domain.Entities
 
         public string? ProfileImageUri { get; set; } = default;
 
+        public User User { get; set; }
+
         public List<TrackParticipant> ParticipatingInTracks { get; set; } = default!;
 
         public List<ReleaseParticipant> ParticipatingInReleases { get; set; } = default!;
