@@ -12,6 +12,7 @@ using AudioStreaming.WebApi.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MusicStreaming.Security;
 
 namespace AudioStreaming.WebApi.Controllers
 {
@@ -56,7 +57,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         [CheckAccessToReleaseFilter]
         public async Task<IApiResult<PagedList<TrackDto>>> GetOwnTracksByRelease([FromQuery] RequestParameters parameters, [FromQuery] ReleaseBaseDto payload)
         {
@@ -84,7 +85,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         [CheckAccessToReleaseFilter]
         public async Task<IApiResult> AddTracksToRelease([FromBody] AddTracksToReleaseDto payload)
         {

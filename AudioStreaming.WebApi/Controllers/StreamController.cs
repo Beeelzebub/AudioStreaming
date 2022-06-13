@@ -5,6 +5,7 @@ using AudioStreaming.Domain.Entities;
 using AudioStreaming.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MusicStreaming.Security;
 using System.Security.Claims;
 
 namespace AudioStreaming.WebApi.Controllers
@@ -41,9 +42,9 @@ namespace AudioStreaming.WebApi.Controllers
                 {
                     return Unauthorized();
                 }
-                if (!User.IsInRole("Moderator"))
+                if (!User.IsInRole(AudioStreamingRoles.Moderator))
                 {
-                    if (User.IsInRole("Artist"))
+                    if (User.IsInRole(AudioStreamingRoles.Artist))
                     {
                         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

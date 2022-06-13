@@ -5,6 +5,7 @@ using AudioStreaming.Common.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MusicStreaming.Security;
 
 namespace AudioStreaming.WebApi.Controllers
 {
@@ -23,7 +24,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]/{artistId}")]
-        //[Authorize(Roles = "Moderator")]
+        [Authorize(Roles = AudioStreamingRoles.Moderator)]
         public async Task<IApiResult> ConfirmArtist([FromRoute] string artistId)
         {
             var result = await _mediator.Send(new ConfirmArtistCommand(artistId));

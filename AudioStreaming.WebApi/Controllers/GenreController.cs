@@ -5,6 +5,7 @@ using AudioStreaming.Application.Mediator.Genres.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MusicStreaming.Security;
 
 namespace AudioStreaming.WebApi.Controllers
 {
@@ -22,7 +23,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = AudioStreamingRoles.Moderator)]
         public async Task<IApiResult<ICollection<string>>> AddGenres([FromBody] ICollection<GenreDto> payload)
         {
             var result = await _mediator.Send(new AddGenresCommand(payload));
@@ -31,7 +32,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]")]
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = AudioStreamingRoles.Moderator)]
         public async Task<IApiResult> EditGenre([FromBody] GenreDto payload)
         {
             var result = await _mediator.Send(new EditGenreCommand(payload));
@@ -40,7 +41,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpDelete("[action]/{genreName}")]
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = AudioStreamingRoles.Moderator)]
         public async Task<IApiResult> DeleteGenre([FromRoute] string genreName)
         {
             var result = await _mediator.Send(new DeleteGenreCommand(genreName));

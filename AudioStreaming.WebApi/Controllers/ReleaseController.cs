@@ -10,6 +10,7 @@ using AudioStreaming.WebApi.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MusicStreaming.Security;
 
 namespace AudioStreaming.WebApi.Controllers
 {
@@ -19,7 +20,7 @@ namespace AudioStreaming.WebApi.Controllers
 
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = AudioStreamingRoles.Moderator)]
         public async Task<IApiResult<PagedList<ReleaseDto>>> GetAllReleasesWithDetails([FromQuery] RequestParameters parameters, 
             [FromQuery] string artistId = null,
             [FromBody] ICollection<ReleaseStage>? releaseStages = null)
@@ -48,7 +49,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         public async Task<IApiResult<int>> CreateRelease([FromForm] CreateReleaseDto payload)
         {
             var result = await _mediator.Send(new CreateReleaseCommand(payload));
@@ -57,7 +58,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         [CheckAccessToReleaseFilter]
         public async Task<IApiResult> EditRelease([FromForm] EditReleaseDto payload)
         {
@@ -67,7 +68,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         [CheckAccessToReleaseFilter]
         public async Task<IApiResult> SendReleaseForVerification([FromBody] ReleaseBaseDto payload)
         {
@@ -77,7 +78,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         [CheckAccessToReleaseFilter]
         public async Task<IApiResult> PublishRelease([FromBody] PublishReleaseDto payload)
         {
@@ -87,7 +88,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpDelete("[action]")]
-        [Authorize(Roles = "Artist")]
+        [Authorize(Roles = AudioStreamingRoles.Artist)]
         [CheckAccessToReleaseFilter]
         public async Task<IApiResult> DeleteRelease([FromBody] ReleaseBaseDto payload)
         {
@@ -97,7 +98,7 @@ namespace AudioStreaming.WebApi.Controllers
         }
 
         [HttpPatch("[action]")]
-        [Authorize(Roles = "Moderator")]
+        [Authorize(Roles = AudioStreamingRoles.Moderator)]
         public async Task<IApiResult> VerifiyRelease([FromBody] VerifyReleaseDto payload)
         {
             var result = await _mediator.Send(new VerifyReleaseCommand(payload));
