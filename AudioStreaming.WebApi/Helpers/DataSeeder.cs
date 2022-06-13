@@ -61,6 +61,15 @@ namespace AudioStreaming.WebApi.Helpers
                 }
             }
 
+            var chart = new List<Chart>();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                chart.Add(new Chart());
+            }
+
+            await dbContext.Chart.AddRangeAsync(chart);
+
             var genres = new List<Genre>
             {
                 new Genre { Name = "Lecture" },

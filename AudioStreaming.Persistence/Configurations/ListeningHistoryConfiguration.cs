@@ -8,7 +8,10 @@ namespace AudioStreaming.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ListeningHistory> builder)
         {
-            builder.HasKey(e => new { e.UserId, e.TrackId, e.Date });
+            builder.HasKey(e => e.Id);
+
+            builder.Property(e => e.Date)
+                .IsRequired(true);
 
             builder.HasOne(e => e.User)
                 .WithMany(e => e.ListeningHistory)

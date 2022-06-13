@@ -11,10 +11,9 @@ namespace AudioStreaming.Application
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(DummyClassForGettingApplicationAssembly).Assembly);
+            services.AddScoped<IMapper>(provider => provider.GetService<IMapper>());
             services.AddMediatR(typeof(DummyClassForGettingApplicationAssembly).Assembly);
             services.AddValidatorsFromAssembly(typeof(DummyClassForGettingApplicationAssembly).Assembly);
-            
-            services.AddScoped<IMapper>(provider => provider.GetService<IMapper>());
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
         }

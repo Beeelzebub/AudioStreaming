@@ -74,7 +74,7 @@ namespace AudioStreaming.Application.Mediator.Playlists.Commands
                 await _context.SaveChangesAsync(cancellationToken);
             }
 
-            var result = ApiResult<int>.CreateSuccessfulResult();
+            var result = ApiResult<int>.CreateSuccessfulResult(playlistToAdd.Id);
 
             result.Errors = string.IsNullOrEmpty(nonexistentIdsMessage) ? new List<string> { nonexistentIdsMessage } : null;
             

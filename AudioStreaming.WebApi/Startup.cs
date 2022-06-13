@@ -1,5 +1,6 @@
 ﻿using AudioStreaming.Application;
 using AudioStreaming.Infrastructure;
+using AudioStreaming.Infrastructure.BackgroundJobs;
 using AudioStreaming.Persistence;
 using Hangfire;
 using Hangfire.Dashboard;
@@ -50,7 +51,7 @@ namespace AudioStreaming.WebApi
             }
 
             RecurringJob.RemoveIfExists("ChartUpdater");
-            //RecurringJob.AddOrUpdate<ChartUpdater>("ChartUpdater", x => x.Update(), Configuration["Hangfire:ChartUpdaterCronExpression"]);
+            RecurringJob.AddOrUpdate<ChartUpdater>("ChartUpdater", x => x.Update(), Configuration["Hangfire:ChartUpdaterCronExpression"]);
 
             app.UseHangfireDashboard(options: new DashboardOptions
             {

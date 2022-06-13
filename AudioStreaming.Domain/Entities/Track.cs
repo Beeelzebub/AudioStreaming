@@ -10,20 +10,22 @@ namespace AudioStreaming.Domain.Entities
 
         public int ReleaseId { get; set; }
 
+        public int? PositionInChart { get; set; }
+
         public string PathInStorage { get; set; } = default!;
 
         public Release Release { get; set; } = default!;
 
-        public List<TrackParticipant> Participants { get; set; } = default!; 
+        public List<TrackParticipant> Participants { get; set; } = new();
 
-        public List<Artist> Artists { get; set; } = default!;
+        public List<Artist> Artists { get; set; } = new ();
 
-        public List<Genre> Genres { get; set; } = default!;
+        public List<Genre> Genres { get; set; } = new ();
 
-        public List<User> UsersWhoAddedToFavorite { get; set; } = default!;
+        public List<User> UsersWhoAddedToFavorite { get; set; } = new ();
 
-        public List<ListeningHistory> ListeningHistory { get; set; } = default!;
+        public List<ListeningHistory> ListeningHistory { get; set; } = new ();
 
-        public List<Playlist> Playlists { get; set; } = default!;
+        public List<Playlist> Playlists { get; set; } = new();
     }
 }

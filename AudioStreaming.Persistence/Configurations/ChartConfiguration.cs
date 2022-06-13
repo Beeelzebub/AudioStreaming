@@ -11,7 +11,9 @@ namespace AudioStreaming.Persistence.Configurations
             builder.HasKey(e => e.Position);
 
             builder.HasOne(e => e.Track)
-                .WithOne();
+                .WithOne()
+                .IsRequired(false)
+                .HasForeignKey("Track", "PositionInChart");
         }
     }
 }

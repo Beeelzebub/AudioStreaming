@@ -38,7 +38,7 @@ namespace AudioStreaming.WebApi.Controllers
 
         [HttpPost("[action]")]
         [Authorize]
-        public async Task<IApiResult<int>> CreatePlaylist([FromBody] CreatePlaylistDto payload)
+        public async Task<IApiResult<int>> CreatePlaylist([FromForm] CreatePlaylistDto payload)
         {
             var result = await _mediator.Send(new CreatePlaylistCommand(payload, User.GetUserId()));
 

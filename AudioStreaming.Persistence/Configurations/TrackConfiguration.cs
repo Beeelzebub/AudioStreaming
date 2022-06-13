@@ -43,6 +43,11 @@ namespace AudioStreaming.Persistence.Configurations
 
             builder.HasMany(e => e.Playlists)
                 .WithMany(e => e.Tracks);
+
+            builder.HasOne<Chart>()
+                .WithOne(e => e.Track)
+                .HasForeignKey("Track", "PositionInChart")
+                .IsRequired(false);
         }
     }
 }

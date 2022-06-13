@@ -4,6 +4,7 @@ using AudioStreaming.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AudioStreaming.Persistence.Migrations
 {
     [DbContext(typeof(AudioStreamingContext))]
-    partial class AudioStreamingContextModelSnapshot : ModelSnapshot
+    [Migration("20220612231818_change-chart3")]
+    partial class changechart3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +69,12 @@ namespace AudioStreaming.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Position"), 1L, 1);
 
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
                     b.HasKey("Position");
+
+                    b.HasIndex("TrackId");
 
                     b.ToTable("Chart");
                 });
@@ -262,10 +269,6 @@ namespace AudioStreaming.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PositionInChart")
-                        .IsUnique()
-                        .HasFilter("[PositionInChart] IS NOT NULL");
 
                     b.HasIndex("ReleaseId");
 
@@ -583,6 +586,17 @@ namespace AudioStreaming.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AudioStreaming.Domain.Entities.Chart", b =>
+                {
+                    b.HasOne("AudioStreaming.Domain.Entities.Track", "Track")
+                        .WithMany()
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Track");
+                });
+
             modelBuilder.Entity("AudioStreaming.Domain.Entities.ListeningHistory", b =>
                 {
                     b.HasOne("AudioStreaming.Domain.Entities.Track", "Track")
@@ -651,10 +665,6 @@ namespace AudioStreaming.Persistence.Migrations
 
             modelBuilder.Entity("AudioStreaming.Domain.Entities.Track", b =>
                 {
-                    b.HasOne("AudioStreaming.Domain.Entities.Chart", null)
-                        .WithOne("Track")
-                        .HasForeignKey("AudioStreaming.Domain.Entities.Track", "PositionInChart");
-
                     b.HasOne("AudioStreaming.Domain.Entities.Release", "Release")
                         .WithMany("Tracks")
                         .HasForeignKey("ReleaseId")
@@ -814,11 +824,6 @@ namespace AudioStreaming.Persistence.Migrations
                     b.Navigation("ParticipatingInReleases");
 
                     b.Navigation("ParticipatingInTracks");
-                });
-
-            modelBuilder.Entity("AudioStreaming.Domain.Entities.Chart", b =>
-                {
-                    b.Navigation("Track");
                 });
 
             modelBuilder.Entity("AudioStreaming.Domain.Entities.Playlist", b =>

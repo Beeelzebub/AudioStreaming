@@ -1,5 +1,7 @@
 ﻿using AudioStreaming.Application.Abstractions.DbContexts;
 using AudioStreaming.Application.Abstractions.Services.BlobStorage;
+using AudioStreaming.Common.Extensions;
+using AudioStreaming.Domain.Entities;
 using AudioStreaming.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +26,6 @@ namespace AudioStreaming.WebApi.Controllers
         public async Task<IActionResult> GetTrackStream([FromRoute] int trackId, CancellationToken cancellationToken)
         {
             var track = await _dbContext.Track
-                .AsNoTracking()
                 .Include(t => t.Release)
                     .ThenInclude(r => r.Artists)
                 .SingleOrDefaultAsync(t => t.Id == trackId, cancellationToken);
@@ -64,6 +65,10 @@ namespace AudioStreaming.WebApi.Controllers
             {
                 return StatusCode(500);
             }
+
+            track.ListeningHistory.Add (new ListeningHistory { Date = DateTimeOffset.UtcNow, UserId = User.Identity?.IsAuthenticated ?? false ? User.GetUserId() : null });
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             var response = File(stream, "audio/mpeg");
             response.EnableRangeProcessing = true;
