@@ -12,7 +12,7 @@ using AudioStreaming.Application.DTOs.Responses;
 namespace AudioStreaming.Application.Mediator.Releases.Queries
 {
     public record GetReleaseListQuery(RequestParameters Parameters, ICollection<ReleaseStage>? ReleaseStages = null, 
-        string? ArtistId = null, bool IncludeDetails = false) : IQuery<PagedList<ReleaseDto>>;
+        string? ArtistId = null) : IQuery<PagedList<ReleaseDto>>;
 
     public class GetReleaseListHandler : IQueryHandler<GetReleaseListQuery, PagedList<ReleaseDto>>
     {
@@ -53,8 +53,7 @@ namespace AudioStreaming.Application.Mediator.Releases.Queries
 
             var result = await releasesQuery.ToPagedListAsync(request.Parameters.Page, request.Parameters.PageSize, cancellationToken);
 
-            return request.IncludeDetails ? ApiResult<PagedList<ReleaseDto>>.CreateSuccessfulResult(_mapper.Map<PagedList<ReleaseDto>>(result)) 
-                : (IApiResult<PagedList<ReleaseDto>>)ApiResult<PagedList<ReleaseDetailDto>>.CreateSuccessfulResult(_mapper.Map<PagedList<ReleaseDetailDto>>(result));
+            return ApiResult<PagedList<ReleaseDto>>.CreateSuccessfulResult(_mapper.Map<PagedList<ReleaseDto>>(result));
         }
     }
 }

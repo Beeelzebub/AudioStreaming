@@ -24,7 +24,7 @@ namespace AudioStreaming.WebApi.Controllers
             [FromQuery] string artistId = null,
             [FromBody] ICollection<ReleaseStage>? releaseStages = null)
         {
-            var result = await _mediator.Send(new GetReleaseListQuery(parameters, releaseStages, artistId, true));
+            var result = await _mediator.Send(new GetReleaseListQuery(parameters, releaseStages, artistId));
             
             return result;
         }
@@ -34,7 +34,7 @@ namespace AudioStreaming.WebApi.Controllers
         public async Task<IApiResult<PagedList<ReleaseDto>>> GetOwnReleasesWithDetails([FromQuery] RequestParameters parameters,
             [FromBody] ICollection<ReleaseStage> releaseStages)
         {
-            var result = await _mediator.Send(new GetReleaseListQuery(parameters, null, User.GetUserId(), true));
+            var result = await _mediator.Send(new GetReleaseListQuery(parameters, null, User.GetUserId()));
            
             return result;
         }
@@ -42,7 +42,7 @@ namespace AudioStreaming.WebApi.Controllers
         [HttpGet("[action]")]
         public async Task<IApiResult<PagedList<ReleaseDto>>> GetPublishedReleases([FromQuery] RequestParameters parameters, [FromQuery] string? artistId = null)
         {
-            var result = await _mediator.Send(new GetReleaseListQuery(parameters, new List<ReleaseStage> { ReleaseStage.Published }, artistId, false));
+            var result = await _mediator.Send(new GetReleaseListQuery(parameters, new List<ReleaseStage> { ReleaseStage.Published }, artistId));
 
             return result;
         }

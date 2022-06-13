@@ -14,6 +14,10 @@ namespace AudioStreaming.Application.DTOs.Releases
 
         public string ReleaseCoverUri { get; set; } = string.Empty;
 
+        public string Description { get; set; } = string.Empty;
+
+        public ReleaseStage ReleaseStage { get; set; }
+
         public IEnumerable<ReleaseParticipantDto> Participants { get; set; } = new List<ReleaseParticipantDto>();
     }
 

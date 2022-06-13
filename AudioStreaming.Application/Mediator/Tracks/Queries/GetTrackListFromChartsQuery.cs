@@ -25,12 +25,14 @@ namespace AudioStreaming.Application.Mediator.Tracks.Queries
 
         public async Task<IApiResult<PagedList<TrackDto>>> Handle(GetTrackListFromChartsQuery request, CancellationToken cancellationToken)
         {
-            var tracks = await _context.Chart
-                .OrderBy(c => c.Position)
-                .Select(c => c.Track)
+            var tracks = await _context.Track
+                .AsNoTracking()
+                .Where(c => c.PositionInChart != null)
                 .Include(t => t.Release)
+                .Include(t => t.Genres)
                 .Include(t => t.Participants)
                     .ThenInclude(pl => pl.Artist)
+                .OrderByDescending(t => t.PositionInChart)
                 .ToPagedListAsync(request.Parameters.Page, request.Parameters.PageSize, cancellationToken);
 
             return ApiResult<PagedList<TrackDto>>.CreateSuccessfulResult(_mapper.Map<PagedList<TrackDto>>(tracks));

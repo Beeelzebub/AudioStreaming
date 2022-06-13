@@ -90,7 +90,8 @@ namespace AudioStreaming.WebApi.Helpers
                 Stage = ReleaseStage.Published,
                 Title = "art history lectures",
                 Description = "art history lectures by Aksenova Alina",
-                Type = ReleaseType.Album
+                Type = ReleaseType.Album,
+                Participants = new List<ReleaseParticipant> { new ReleaseParticipant { ArtistId = releaseArtist.Id } }
             };
 
             using (var coverStream = new FileStream(ReleaseCoverLocalPath, FileMode.Open))

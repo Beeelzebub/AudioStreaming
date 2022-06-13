@@ -2,7 +2,6 @@
 using MediatR;
 using FluentValidation;
 using AudioStreaming.Application.Mediator.Behaviors;
-using AutoMapper;
 
 namespace AudioStreaming.Application
 {
@@ -11,7 +10,6 @@ namespace AudioStreaming.Application
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(DummyClassForGettingApplicationAssembly).Assembly);
-            services.AddScoped<IMapper>(provider => provider.GetService<IMapper>());
             services.AddMediatR(typeof(DummyClassForGettingApplicationAssembly).Assembly);
             services.AddValidatorsFromAssembly(typeof(DummyClassForGettingApplicationAssembly).Assembly);
 
