@@ -1,8 +1,8 @@
 ﻿using AudioStreaming.Application.Abstractions.Responses;
 using AudioStreaming.Application.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
-using MusicStreaming.Security.Models;
-using MusicStreaming.Security.Services.Abstractions;
+using AudioStreaming.Security.Models;
+using AudioStreaming.Security.Services.Abstractions;
 
 namespace AudioStreaming.WebApi.Controllers
 {

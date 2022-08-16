@@ -12,7 +12,7 @@ using AudioStreaming.WebApi.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MusicStreaming.Security;
+using AudioStreaming.Security;
 
 namespace AudioStreaming.WebApi.Controllers
 {

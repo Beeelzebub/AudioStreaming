@@ -4,7 +4,7 @@ using AudioStreaming.Domain.Entities;
 using AudioStreaming.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MusicStreaming.Security;
+using AudioStreaming.Security;
 
 namespace AudioStreaming.WebApi.Helpers
 {

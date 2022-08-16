@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using MusicStreaming.Security.Services;
-using MusicStreaming.Security.Services.Abstractions;
+using AudioStreaming.Security.Services;
+using AudioStreaming.Security.Services.Abstractions;
 using System.Text;
 
-namespace MusicStreaming.Security
+namespace AudioStreaming.Security
 {
     public static class ServiceCollectionExtensions
     {

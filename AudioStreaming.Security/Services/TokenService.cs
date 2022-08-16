@@ -1,13 +1,13 @@
 ﻿using AudioStreaming.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using MusicStreaming.Security.Services.Abstractions;
+using AudioStreaming.Security.Services.Abstractions;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MusicStreaming.Security.Services
+namespace AudioStreaming.Security.Services
 {
     public class TokenService : ITokenService
     {

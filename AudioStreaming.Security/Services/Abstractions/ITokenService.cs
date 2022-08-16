@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace MusicStreaming.Security.Services.Abstractions
+namespace AudioStreaming.Security.Services.Abstractions
 {
     public interface ITokenService
     {

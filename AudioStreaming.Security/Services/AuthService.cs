@@ -1,9 +1,9 @@
 ﻿using AudioStreaming.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using MusicStreaming.Security.Models;
-using MusicStreaming.Security.Services.Abstractions;
+using AudioStreaming.Security.Models;
+using AudioStreaming.Security.Services.Abstractions;
 
-namespace MusicStreaming.Security.Services
+namespace AudioStreaming.Security.Services
 {
     public class AuthService : IAuthService
     {

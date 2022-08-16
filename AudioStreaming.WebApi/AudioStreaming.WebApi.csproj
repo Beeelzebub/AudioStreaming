@@ -22,7 +22,7 @@
     <ProjectReference Include="..\AudioStreaming.Domain\AudioStreaming.Domain.csproj" />
     <ProjectReference Include="..\AudioStreaming.Infrastructure\AudioStreaming.Infrastructure.csproj" />
     <ProjectReference Include="..\AudioStreaming.Persistence\AudioStreaming.Persistence.csproj" />
-    <ProjectReference Include="..\MusicStreaming.Security\MusicStreaming.Security.csproj" />
+    <ProjectReference Include="..\AudioStreaming.Security\AudioStreaming.Security.csproj" />
   </ItemGroup>
 
 </Project>

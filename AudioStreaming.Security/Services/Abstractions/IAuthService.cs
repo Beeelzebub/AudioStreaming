@@ -1,6 +1,6 @@
-﻿using MusicStreaming.Security.Models;
+﻿using AudioStreaming.Security.Models;
 
-namespace MusicStreaming.Security.Services.Abstractions
+namespace AudioStreaming.Security.Services.Abstractions
 {
     public interface IAuthService
     {

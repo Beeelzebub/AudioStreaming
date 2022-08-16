@@ -2,8 +2,8 @@
 using AudioStreaming.Application.DTOs.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MusicStreaming.Security.Models;
-using MusicStreaming.Security.Services.Abstractions;
+using AudioStreaming.Security.Models;
+using AudioStreaming.Security.Services.Abstractions;
 using System.Security.Claims;
 
 namespace AudioStreaming.WebApi.Controllers

@@ -5,7 +5,7 @@ using AudioStreaming.Application.Mediator.Genres.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MusicStreaming.Security;
+using AudioStreaming.Security;
 
 namespace AudioStreaming.WebApi.Controllers
 {

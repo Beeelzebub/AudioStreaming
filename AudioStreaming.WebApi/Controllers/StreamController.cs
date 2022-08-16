@@ -5,7 +5,7 @@ using AudioStreaming.Domain.Entities;
 using AudioStreaming.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MusicStreaming.Security;
+using AudioStreaming.Security;
 using System.Security.Claims;
 
 namespace AudioStreaming.WebApi.Controllers

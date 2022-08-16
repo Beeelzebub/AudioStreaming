@@ -1,4 +1,4 @@
-﻿namespace MusicStreaming.Security
+﻿namespace AudioStreaming.Security
 {
     public static class AudioStreamingRoles
     {

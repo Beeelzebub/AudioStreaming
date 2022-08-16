@@ -3,7 +3,7 @@ using AudioStreaming.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace MusicStreaming.Security.Services
+namespace AudioStreaming.Security.Services
 {
     public class UserService : IUserService
     {

@@ -1,4 +1,4 @@
-﻿namespace MusicStreaming.Security.Services.Abstractions
+﻿namespace AudioStreaming.Security.Services.Abstractions
 {
     public class JwtOptions
     {

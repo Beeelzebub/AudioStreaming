@@ -4,7 +4,7 @@ using AudioStreaming.Infrastructure.BackgroundJobs;
 using AudioStreaming.Persistence;
 using Hangfire;
 using Hangfire.Dashboard;
-using MusicStreaming.Security;
+using AudioStreaming.Security;
 
 namespace AudioStreaming.WebApi
 {

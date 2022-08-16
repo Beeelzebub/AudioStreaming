@@ -1,6 +1,6 @@
-﻿namespace MusicStreaming.Security.Models
+﻿namespace AudioStreaming.Security.Models
 {
-    public class AuthenticatedResponse
+    public class TokenApiModel
     {
         public string? AccessToken { get; set; }
 

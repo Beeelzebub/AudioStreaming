@@ -1,4 +1,4 @@
-﻿namespace MusicStreaming.Security.Models
+﻿namespace AudioStreaming.Security.Models
 {
     public class LoginModel
     {
